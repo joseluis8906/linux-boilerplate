@@ -1,0 +1,26 @@
+- hosts: "*"
+  tasks:
+    - name: install git curl wget
+      pacman:
+        name:
+          - git
+          - curl
+          - wget
+        state: present
+        update_cache: true
+      become: true
+
+    - name: install neovim tmux nodejs go fd bat ripgrep jq
+      community.general.homebrew:
+        name:
+          - neovim
+          - tmux
+          - nodejs
+          - go
+          - fd
+          - bat
+          - tldr
+          - ripgrep
+          - jq
+          - lazygit
+        state: present
