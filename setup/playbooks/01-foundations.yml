@@ -10,9 +10,10 @@
         update_cache: true
       become: true
 
-    - name: install neovim tmux nodejs go fd bat ripgrep jq
+    - name: install neofetch neovim tmux nodejs go fd bat ripgrep jq lazygit autojump docker docker-compose htop
       community.general.homebrew:
         name:
+          - neofetch
           - neovim
           - tmux
           - nodejs
@@ -23,4 +24,8 @@
           - ripgrep
           - jq
           - lazygit
+          - autojump
+          - docker
+          - docker-compose
+          - htop
         state: present

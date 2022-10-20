@@ -1,0 +1,118 @@
+- hosts: "*"
+  tasks:
+    - name: install xorg xorg-xinit kitty bspwm sxhkd nitrogen picom firefox dmenu xf86-video-qxl
+      pacman:
+        name:
+          - xorg
+          - xorg-xinit
+          - kitty
+          - bspwm
+          - sxhkd
+          - nitrogen
+          - picom
+          - firefox
+          - dmenu
+          - lxsession
+          - xf86-video-qxl
+        state: present
+        update_cache: true
+      become: true
+
+    - name: ensure picom vsync is disabled
+      ansible.builtin.lineinfile:
+        path: /etc/xdg/picom.conf
+        regexp: '^vsync = true'
+        line: 'vsync = false'
+      become: true
+
+    - name: create bspwmrc directory if it does not exist
+      ansible.builtin.file:
+        path: ~/.config/bspwm
+        state: directory
+        mode: '0755'
+
+    - name: create bspwmrc
+      ansible.builtin.template:
+        src: bspwmrc.j2
+        dest: ~/.config/bspwm/bspwmrc
+
+    - name: create sxhkd directory if it does not exist
+      ansible.builtin.file:
+        path: ~/.config/sxhkd
+        state: directory
+        mode: '0755'
+
+    - name: create sxhkdrc
+      ansible.builtin.template:
+        src: sxhkdrc.j2
+        dest: ~/.config/sxhkd/sxhkdrc
+
+    - name: create xinitrc
+      ansible.builtin.template:
+        src: xinitrc.j2
+        dest: ~/.xinitrc
+
+    - name: create Desktop directory
+      ansible.builtin.file:
+        path: ~/Desktop
+        state: directory
+        mode: '0755'
+
+    - name: create Documents directory
+      ansible.builtin.file:
+        path: ~/Documents
+        state: directory
+        mode: '0755'
+
+    - name: create Downloads directory
+      ansible.builtin.file:
+        path: ~/Downloads
+        state: directory
+        mode: '0755'
+
+    - name: create Music directory
+      ansible.builtin.file:
+        path: ~/Music
+        state: directory
+        mode: '0755'
+
+    - name: create Pictures directory
+      ansible.builtin.file:
+        path: ~/Pictures
+        state: directory
+        mode: '0755'
+
+    - name: create Public directory
+      ansible.builtin.file:
+        path: ~/Public
+        state: directory
+        mode: '0755'
+
+    - name: create Templates directory
+      ansible.builtin.file:
+        path: ~/Templates
+        state: directory
+        mode: '0755'
+
+    - name: create Video directory
+      ansible.builtin.file:
+        path: ~/Video
+        state: directory
+        mode: '0755'
+
+    - name: create Code directory
+      ansible.builtin.file:
+        path: ~/Code
+        state: directory
+        mode: '0755'
+
+    - name: copy black background
+      ansible.builtin.copy:
+        src: ./assets/Arch-Linux-Black.jpg
+        dest: ~/Pictures/Arch-Linux-Black.jpg
+
+    - name: copy blue background
+      ansible.builtin.copy:
+        src: ./assets/Arch-Linux-Background.png
+        dest: ~/Pictures/Arch-Linux-Background.png
+

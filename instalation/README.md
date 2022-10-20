@@ -154,7 +154,7 @@ $ test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" 
 $ echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.zprofile
 ```
 
-24). Run ansible to setup the new install:
+24). Run make to setup the new install:
 ```
-$  ansible-playbook ./playbooks/01-foundations.yml -i ./inventory/hosts --user $USER --ask-pass --ask-become-pass 
+$ make foundations 
 ```

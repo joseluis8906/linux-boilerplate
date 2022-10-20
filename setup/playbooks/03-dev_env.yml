@@ -1,0 +1,62 @@
+- hosts: "*"
+  tasks:
+    - name: create fonts directory
+      ansible.builtin.file:
+        path: ~/.local/share/fonts
+        state: directory
+        mode: '0755'
+
+    - name: copy firacode
+      ansible.builtin.copy:
+        src: './assets/Fira Code Regular Nerd Font Complete.ttf'
+        dest: '~/.local/share/fonts/Fira Code Regular Nerd Font Complete.ttf'
+
+    - name: create config kitty directory
+      ansible.builtin.file:
+        path: ~/.config/kitty/kitty-themes
+        state: directory
+        mode: '0755'
+
+    - name: create kitty conf
+      ansible.builtin.template:
+        src: kitty.j2
+        dest: ~/.config/kitty/kitty.conf
+
+    - name: git checkout kitty themes
+      ansible.builtin.git:
+        repo:  'https://github.com/dexpota/kitty-themes.git'
+        dest: ~/.config/kitty/kitty-themes
+
+    - name: create a kitty theme symbolic link
+      ansible.builtin.file:
+        src: ~/.config/kitty/kitty-themes/themes/OneDark.conf
+        dest: ~/.config/kitty/theme.conf
+        state: link
+
+    - name: create tmux conf
+      ansible.builtin.template:
+        src: tmux.j2
+        dest: ~/.tmux.conf
+
+    - name: create tmux plugins tpm directory
+      ansible.builtin.file:
+        path: ~/.tmux/plugins/tpm
+        state: directory
+        mode: '0755'
+
+    - name: git checkout tmux tpm
+      ansible.builtin.git:
+        repo:  'https://github.com/tmux-plugins/tpm.git'
+        dest: ~/.tmux/plugins/tpm
+
+    - name: create nvim directory
+      ansible.builtin.file:
+        path: ~/.config/nvim
+        state: directory
+        mode: '0755'
+
+    - name: git checkout nvim env
+      ansible.builtin.git:
+        repo: 'https://github.com/joseluis8906/nvim.git'
+        dest: ~/.config/nvim
+
