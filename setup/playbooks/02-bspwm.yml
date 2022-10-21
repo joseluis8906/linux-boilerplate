@@ -10,7 +10,6 @@
           - sxhkd
           - nitrogen
           - picom
-          - firefox
           - dmenu
           - lxsession
           - xf86-video-qxl

@@ -6,6 +6,7 @@
           - git
           - curl
           - wget
+          - docker
         state: present
         update_cache: true
       become: true
