@@ -115,3 +115,38 @@
         src: ./assets/Arch-Linux-Background.png
         dest: ~/Pictures/Arch-Linux-Background.png
 
+    - name: create neofetch-themes directory
+      ansible.builtin.file:
+        path: ~/.config/neofetch/neofetch-themes
+        state: directory
+        mode: '0755'
+
+    - name: git checkout neofetch themes
+      ansible.builtin.git:
+        repo: 'https://github.com/Chick2D/neofetch-themes'
+        dest: ~/.config/neofetch/neofetch-themes
+
+    - name: check if configbackup.conf
+      ansible.builtin.stat:
+        path: ~/.config/neofetch/configbackup.conf
+      register: configbackup_st
+
+    - name: create neofetch conf back up
+      ansible.builtin.copy: 
+        remote_src: True 
+        src: ~/.config/neofetch/config.conf 
+        dest: ~/.config/neofetch/configbackup.conf
+      when: not configbackup_st.stat.exists
+
+    - name: remove old neofetch conf file
+      ansible.builtin.file: 
+        path: ~/.config/neofetch/config.conf
+        state: absent
+      when: not configbackup_st.stat.exists
+
+    - name: create neofetch-themes conf
+      ansible.builtin.copy: 
+        remote_src: True 
+        src: ~/.config/neofetch/neofetch-themes/normal/ozozfetch
+        dest: ~/.config/neofetch/config.conf
+      when: not configbackup_st.stat.exists
