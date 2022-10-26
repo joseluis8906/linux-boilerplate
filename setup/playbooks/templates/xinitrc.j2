@@ -31,9 +31,12 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-setxkbmap us &
+# setxkbmap us | latam | es &
+setxkbmap latam &
 picom -fb &
 sxhkd &
-xrandr -s 1360x768 &
 nitrogen --restore &
+xrandr -s 1360x768 &
+bash ~/.config/polybar/launch.sh --hack &
+kitty &
 exec bspwm

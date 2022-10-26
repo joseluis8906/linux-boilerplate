@@ -154,7 +154,29 @@ $ test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" 
 $ echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.zprofile
 ```
 
-24). Run make to setup the new install:
+24). install yay (make sure the Go binary is from pacman and not linuxbrew):
+```
+$ sudo pacman -Syu --needed base-devel git
+$ cd Code && git clone https://aur.archlinux.org/yay.git
+$ cd yay && makepkg -si 
+```
+25). install ansible plugins in your local ansible machine:
+```
+$ ansible-galaxy collection install community.general
+```
+
+26). install networkmanager-dmenu
+```
+$ yay -Syu networkmanager-dmenu
+```
+
+27). install paper theme
+```
+$ yay -Syu paper-gtk-theme-git
+$ yay -Syu paper-icon-theme-git
+```
+
+26). Run make to setup the new install:
 ```
 $ make foundations 
 ```

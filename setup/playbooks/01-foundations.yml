@@ -1,12 +1,15 @@
 - hosts: "*"
   tasks:
-    - name: install git curl wget
+    - name: install git curl wget docker polybar rofi calc
       pacman:
         name:
           - git
           - curl
           - wget
           - docker
+          - polybar
+          - rofi
+          - calc
         state: present
         update_cache: true
       become: true
@@ -29,4 +32,10 @@
           - docker
           - docker-compose
           - htop
+        state: present
+
+    - name: install pywal
+      ansible.builtin.pip:
+        name: 
+          - pywal
         state: present

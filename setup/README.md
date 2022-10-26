@@ -4,15 +4,54 @@
 ```
 $ make desktop
 ```
-2). install yay (make sure the Go binary is from pacman and not linuxbrew):
+
+2). set up polybar:
 ```
-$ sudo pacman -Syu --needed base-devel git
-$ cd Code && git clone https://aur.archlinux.org/yay.git
-$ cd yay && makepkg -si 
+$ git clone --depth=1 https://github.com/adi1090x/polybar-themes.git
+$ cd polybar-themes
+$ chmod +x setup.sh
 ```
-3). install polybar:
+run and select a theme:
 ```
-$ yay -S polybar
+$ ./setup.sh
+
+[*] Installing Polybar Themes...
+
+[*] Choose Style -
+[1] Simple
+[2] Bitmap
+
+[?] Select Option : 1
+
+[*] Installing fonts...
+[*] Creating a backup of your polybar configs...
+[*] Successfully Installed.
+```
+to launch the bar with the selected theme:
+
+```
+$ bash ~/.config/polybar/launch.sh
+
+Usage : launch.sh --theme
+
+Available Themes :
+--blocks    --colorblocks    --cuts      --docky
+--forest    --grayblocks     --hack      --material
+--panels    --pwidgets       --shades    --shapes
+```
+now, select your theme and launch the bar:
+
+```
+$ bash ~/.config/polybar/launch.sh --hack
+```
+
+you can add the same command to your WM autostart file to launch the bar on login.
+for example, to launch the bar at startup on openbox, add following lines in 
+`~/.xinitrc`
+
+```
+## Launch Polybar
+bash ~/.config/polybar/launch.sh --hack
 ```
 
 # Setup Dev Environment
